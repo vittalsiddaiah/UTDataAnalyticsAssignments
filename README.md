@@ -7,5 +7,4 @@
 
 
 ### Support or Contact
-
-For details please contact [email](vittal.siddaiah@gmail.com) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+	For details please contact [email](vittal.siddaiah@gmail.com) 
