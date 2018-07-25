@@ -3,7 +3,13 @@
 
 #### Assignment_01: Microsoft Excel Charting and Analysis
 The Dash Board ![alt text](https://github.com/vittalsiddaiah/UTDataAnalyticsAssignments/blob/master/images/Assignment_01_01.png?raw=true)
+
+
+
 #### Assignment_02: Microsoft Excel programing using VB Scripts
+
+
+
 #### Assignment_03: Introduction to Python programming
 
 
