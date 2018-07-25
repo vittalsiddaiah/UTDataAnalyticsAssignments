@@ -7,4 +7,5 @@
 
 
 ### Support or Contact
-	For details please contact [email](vittal.siddaiah@gmail.com) 
+
+For details please contact [email](vittal.siddaiah@gmail.com).
