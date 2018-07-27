@@ -39,8 +39,10 @@ def PyBank(input_file, output_file):
 	Log path :  RevenueResultFile.txt
 	==================================================================================
 ```
+******
 
 ### PyPoll
+
 #### Code:
 ```python
 def PyPoll(input_file, output_file):
@@ -90,7 +92,7 @@ def PyPoll(input_file, output_file):
 
 	Log path :  ElectionResultFile.txt
 ```
-	
+
 #### Support or Contact
 
-For details please contact [mailto](mailto:vittal.siddaiah@gmail.com) 
+For details please contact [email](mailto:vittal.siddaiah@gmail.com) 
