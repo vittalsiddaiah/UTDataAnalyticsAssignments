@@ -74,5 +74,5 @@ def PyPoll(input_file, output_file):
 
 ########################################################################################################################
 if __name__ == '__main__':
-    PyBank("../data/src/budget_data.csv", "../data/dst/ElectionResults.txt")
-    PyPoll("../data/src/election_data.csv", "../data/dst/BudgetResultFile.txt")
+    PyBank("../../data/src/budget_data.csv", "../../data/dst/RevenueResultFile.txt")
+    PyPoll("../../data/src/election_data.csv", "../../data/dst/ElectionResultFile.txt")
