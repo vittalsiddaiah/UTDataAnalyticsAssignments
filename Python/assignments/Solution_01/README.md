@@ -28,6 +28,16 @@ def PyBank(input_file, output_file):
 ```
 #### Output:
 
+----------------------------------------------------------------------------------
+                      Financial Analysis                      
+----------------------------------------------------------------------------------
+      Total number of months : 41
+                       Total : $(18971412)
+Greatest Increase in Profits : Sep-15  $(1195111)
+Greatest Decrease in Profits : Aug-14  $(-1172384)
+----------------------------------------------------------------------------------
+Log path :  /Users/vsiddaia/Vittal/UT/Assignments/UTDataAnalyticsAssignments/Python/data/dst/RevenueResultFile.txt
+==================================================================================
 
 
 ### PyPoll
@@ -63,7 +73,19 @@ def PyPoll(input_file, output_file):
     return
 ```
 #### Output:
-
+----------------------------------------------------------------------------------
+                       Election Results                       
+----------------------------------------------------------------------------------
+Total Votes: 3521001
+----------------------------------------------------------------------------------
+      Khan,  63.00%,  2218231
+    Correy,  20.00%,   704200
+        Li,  14.00%,   492940
+  O'Tooley,   3.00%,   105630
+----------------------------------------------------------------------------------
+Winner: Khan
+----------------------------------------------------------------------------------
+Log path :  /Users/vsiddaia/Vittal/UT/Assignments/UTDataAnalyticsAssignments/Python/data/dst/ElectionResultFile.txt
 #### Support or Contact
 
 For details please contact [email](vittal.siddaiah@gmail.com).
