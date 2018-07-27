@@ -36,7 +36,7 @@ def PyBank(input_file, output_file):
 Greatest Increase in Profits : Sep-15  $(1195111)
 Greatest Decrease in Profits : Aug-14  $(-1172384)
 ----------------------------------------------------------------------------------
-Log path :  /Users/vsiddaia/Vittal/UT/Assignments/UTDataAnalyticsAssignments/Python/data/dst/RevenueResultFile.txt
+Log path :  RevenueResultFile.txt
 ==================================================================================
 
 
@@ -85,7 +85,7 @@ Total Votes: 3521001
 ----------------------------------------------------------------------------------
 Winner: Khan
 ----------------------------------------------------------------------------------
-Log path :  /Users/vsiddaia/Vittal/UT/Assignments/UTDataAnalyticsAssignments/Python/data/dst/ElectionResultFile.txt
+Log path :  ElectionResultFile.txt
 #### Support or Contact
 
 For details please contact [email](vittal.siddaiah@gmail.com).
