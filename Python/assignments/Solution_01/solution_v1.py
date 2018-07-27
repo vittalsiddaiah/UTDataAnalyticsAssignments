@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.insert(1, r'../../py_lib/')
 from py_lib.csv_parser import csv_parser
 
 
