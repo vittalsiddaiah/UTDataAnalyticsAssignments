@@ -26,7 +26,8 @@ def PyBank(input_file, output_file):
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
 ```
-#### Output:
+Output:
+-------
 
 	----------------------------------------------------------------------------------
 	                      Financial Analysis                      
