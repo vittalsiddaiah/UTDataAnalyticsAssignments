@@ -26,9 +26,8 @@ def PyBank(input_file, output_file):
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
 ```
-Output:
--------
-
+#### Output:
+```
 	----------------------------------------------------------------------------------
 	                      Financial Analysis                      
 	----------------------------------------------------------------------------------
@@ -39,7 +38,7 @@ Output:
 	----------------------------------------------------------------------------------
 	Log path :  RevenueResultFile.txt
 	==================================================================================
-
+```
 
 ### PyPoll
 #### Code:
@@ -73,7 +72,9 @@ def PyPoll(input_file, output_file):
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
 ```
+
 #### Output:
+```
 	----------------------------------------------------------------------------------
 	                       Election Results                       
 	----------------------------------------------------------------------------------
@@ -86,7 +87,10 @@ def PyPoll(input_file, output_file):
 	----------------------------------------------------------------------------------
 	Winner: Khan
 	----------------------------------------------------------------------------------
+
 	Log path :  ElectionResultFile.txt
+```
+	
 #### Support or Contact
 
-For details please contact [email](vittal.siddaiah@gmail.com).
+For details please contact [mailto](mailto:vittal.siddaiah@gmail.com) 
