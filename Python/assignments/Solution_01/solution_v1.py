@@ -14,6 +14,9 @@ def PyBank(input_file, output_file):
     report.append(line())
     report.append("      Total number of months : " + str(len(budgetData)))
     report.append("                       Total : $(" + str(budgetData.sum('Revenue')) + ")")
+    diff = budgetData.diff(column_name='Revenue')
+    report.append("              Average Change : $(" + str(sum(diff[0:len(diff)])/len(diff)) + ")")
+
     [maxValue, maxOffset] = budgetData.max(column_name='Revenue')
     [minValue, minOffset] = budgetData.min(column_name='Revenue')
     report.append("Greatest Increase in Profits : " + budgetData.cell(maxOffset, 'Date') + "  $(" + str(

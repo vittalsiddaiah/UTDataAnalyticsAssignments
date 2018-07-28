@@ -151,11 +151,13 @@ class csv_parser:
         return [min, min_offset]
 
     #####################################################################
-    def diff(self, column_name):
+    def diff(self, column_name='', column_offset=math.nan):
+        if math.isnan(column_offset): column_offset = self.__get_col_offset__(column_name)
         diff_array = []
-        counter = 1
-        for data in self.__data__:
-            diff_array.append(data[counter] - data[counter - 1])
+        for counter in range(len(self.__data__)):
+            if counter == 0: continue
+            diff_array.append(self.__data__[counter][column_offset] - self.__data__[counter-1][column_offset])
+            counter += 1
         return diff_array
 
     #####################################################################
