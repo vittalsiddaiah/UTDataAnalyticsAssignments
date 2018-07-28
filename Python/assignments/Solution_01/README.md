@@ -17,18 +17,20 @@ def PyBank(input_file, output_file):
 
     [maxValue, maxOffset] = budgetData.max(column_name='Revenue')
     [minValue, minOffset] = budgetData.min(column_name='Revenue')
-    report.append("Greatest Increase in Profits : " + budgetData.cell(maxOffset, 'Date') + "  $(" + str(
-        maxValue) + ")")
-    report.append("Greatest Decrease in Profits : " + budgetData.cell(minOffset, 'Date') + "  $(" + str(
-        minValue) + ")")
+    report.append("Greatest Increase in Profits : "
+                  + budgetData.cell(maxOffset, 'Date')
+                  + "  $(" + str(maxValue) + ")")
+    report.append("Greatest Decrease in Profits : "
+                  + budgetData.cell(minOffset, 'Date')
+                  + "  $(" + str(minValue) + ")")
     report.append(line())
-
     finalReport = "\n".join(report) + "\n"
 
     with open(output_file, 'w') as fd_results:
         fd_results.write(finalReport)
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
+
 ```
 #### Output:
 ```
