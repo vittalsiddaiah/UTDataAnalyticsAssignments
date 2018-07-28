@@ -32,9 +32,9 @@ def PyBank(input_file, output_file):
 	----------------------------------------------------------------------------------
 	                      Financial Analysis                      
 	----------------------------------------------------------------------------------
-		  Total number of months : 41
-        	               Total : $(18971412)
-            	  Average Change : $(-6758.975)
+	      Total number of months : 41
+                           Total : $(18971412)
+                  Average Change : $(-6758.975)
 	Greatest Increase in Profits : Sep-15  $(1195111)
 	Greatest Decrease in Profits : Aug-14  $(-1172384)
 	----------------------------------------------------------------------------------
