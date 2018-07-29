@@ -8,7 +8,6 @@ Sub TotalTicker()
     ' TotalTicker is a generic script that can utitlized over ticker tables
     ' Contact: vittal.siddaiah@gmail.com
     ' --------------------------------------------
-
     Dim openPrice As Double
     Dim closePrice As Double
 
@@ -28,112 +27,127 @@ Sub TotalTicker()
     Dim totalCounter As Long
     Dim totalTickers As Double
     Dim tickerSwitch As Boolean
+    
+    Dim startTime As Double
+    Dim timeSpentInMins As String
+    Dim condColIndex As Integer
+    Dim headColIndex As Integer
 
-	Dim pctgOffset as Integer
-    pctgOffset = 2
-
+    startTime = Timer
     For Each wkSheet In Worksheets
         'Initializations
         totalCounter = 2
         totalTickers = 0
         tickerSwitch = True
         firstRow = 2
+        max = 0
+        min = 0
+        maxVol = 0
+
+        resultRow = 2
+        headColIndex = 27
         lastRow = wkSheet.Cells(Rows.Count, 1).End(xlUp).Row
 
-        wkSheet.Cells(totalCounter - 1, 9).Value = "Ticker"
-        wkSheet.Cells(totalCounter - 1, 10).Value = "Yearly Change"
-        wkSheet.Cells(totalCounter - 1, 11).Value = "Percent Change"
-        wkSheet.Cells(totalCounter - 1, 12).Value = "Total Stock Volume"
-
-        wkSheet.Cells(totalCounter - 1, 16).Value = "Ticker"
-        wkSheet.Cells(totalCounter - 1, 17).Value = "Value"
+            ''Formatting the cells
+        wkSheet.Cells(resultRow - 1, 9).Value = "Ticker"
+        wkSheet.Cells(resultRow - 1, 10).Value = "Yearly Change"
+        wkSheet.Cells(resultRow - 1, 11).Value = "Percent Change"
+        wkSheet.Cells(resultRow - 1, 12).Value = "Total Stock Volume"
+        wkSheet.Cells(resultRow - 1, 9).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 10).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 11).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 12).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 9).ColumnWidth = 12
+        wkSheet.Cells(resultRow - 1, 10).ColumnWidth = 12
+        wkSheet.Cells(resultRow - 1, 11).ColumnWidth = 14
+        wkSheet.Cells(resultRow - 1, 12).ColumnWidth = 16
         
-        For i = firstRow To lastRow
-            If wkSheet.Cells(i, 1).Value <> wkSheet.Cells(i + 1, 1).Value Then
-                totalTickers = totalTickers + wkSheet.Cells(i, 7).Value
-                wkSheet.Cells(totalCounter, 9).Value = wkSheet.Cells(i, 1).Value
+        wkSheet.Cells(resultRow - 1, 16).Value = "Ticker"
+        wkSheet.Cells(resultRow - 1, 17).Value = "Value"
+        wkSheet.Cells(resultRow - 1, 16).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 17).Interior.ColorIndex = headColIndex
+        wkSheet.Cells(resultRow - 1, 15).ColumnWidth = 20
+
+
+        
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        For Row = firstRow To lastRow    ''row iterator start
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            If wkSheet.Cells(Row, 1).Value <> wkSheet.Cells(Row + 1, 1).Value Then
+                totalTickers = totalTickers + wkSheet.Cells(Row, 7).Value
+                wkSheet.Cells(totalCounter, 9).Value = wkSheet.Cells(Row, 1).Value
                 wkSheet.Cells(totalCounter, 12).Value = totalTickers
                 totalTickers = 0
                 
-                closePrice = wkSheet.Cells(i, 6).Value
+                closePrice = wkSheet.Cells(Row, 6).Value
                 yearlyChange = closePrice - openPrice
                 wkSheet.Cells(totalCounter, 10).Value = yearlyChange
-                percentChange = (closePrice - openPrice) * 100 / (openPrice)
-                wkSheet.Cells(totalCounter, 11).Value = percentChange
-
+                wkSheet.Cells(totalCounter, 11).Value = (closePrice - openPrice) / (openPrice) ''Percentage Change Calculation...
+                wkSheet.Cells(totalCounter, 11).NumberFormat = "0.00%"
+                ''Conditional format of cells
+                condColIndex = 0
                 If yearlyChange > 0 Then
-                    With wkSheet.Cells(totalCounter, 10)
-                    .Interior.Color = vbGreen
-                    .Font.Color = vbBlack
-                 End With
+                    condColIndex = 4
                 Else
-                    With wkSheet.Cells(totalCounter, 10)
-                        .Interior.Color = vbRed
-                        .Font.Color = vbYellow
-                    End With
+                    condColIndex = 3
                 End If
+                wkSheet.Cells(totalCounter, 9).Interior.ColorIndex = condColIndex
+                wkSheet.Cells(totalCounter, 10).Interior.ColorIndex = condColIndex
+                wkSheet.Cells(totalCounter, 11).Interior.ColorIndex = condColIndex
+                wkSheet.Cells(totalCounter, 12).Interior.ColorIndex = condColIndex
+                    
                 tickerSwitch = True
                 totalCounter = totalCounter + 1
                 
             Else
-                totalTickers = totalTickers + wkSheet.Cells(i, 7).Value
-                If tickerSwitch = True And wkSheet.Cells(i, 3) <> 0 Then
-                   openPrice = wkSheet.Cells(i, 3).Value
+                totalTickers = totalTickers + wkSheet.Cells(Row, 7).Value
+                If tickerSwitch = True And wkSheet.Cells(Row, 3) <> 0 Then
+                   openPrice = wkSheet.Cells(Row, 3).Value
                    tickerSwitch = False
                 End If
             End If
         
-        Next i
-        
-        lastRow = wkSheet.Cells(Rows.Count, 1).End(xlUp).Row
-        
-        max = 0
-        min = 0
-        maxVol = 0
-        
-            For i = 2 To lastRow
-                'loop through values
-                If wkSheet.Cells(i, 12).Value <> 0 Then
-                        ' Search for highest volume  and save it accordingly to its row value
-                        If wkSheet.Cells(i, 12).Value > maxVol And wkSheet.Cells(i, 12).Value <> 0 Then 
-                             maxVol = wkSheet.Cells(i, 12).Value ' store it as the new max!
-                             maxVolrow = i
-                        End If
-
-                        ' Search for highest percentage increase and save it accordingly to its row value
-                        If wkSheet.Cells(i, 11).Value > max And wkSheet.Cells(i, 12).Value <> 0 Then 
-                             max = wkSheet.Cells(i, 11).Value ' store it as the new max!
-                             maxRow = i
-                        End If
-
-                        ' Search for highest percentage decrease and save it accordingly to its row value
-                        If wkSheet.Cells(i, 11).Value < min And wkSheet.Cells(i, 12).Value <> 0 Then 
-                             min = wkSheet.Cells(i, 11).Value ' store it as the new min!
-                             minRow = i
-                        End If
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            If wkSheet.Cells(Row, 12).Value <> 0 Then
+                If wkSheet.Cells(Row, 12).Value > maxVol Then
+                     maxVol = wkSheet.Cells(Row, 12).Value
+                     maxVolrow = Row
                 End If
-            Next i
+                If wkSheet.Cells(Row, 11).Value > max Then
+                     max = wkSheet.Cells(Row, 11).Value
+                     maxRow = Row
+                ElseIf wkSheet.Cells(Row, 11).Value < min Then
+                     min = wkSheet.Cells(Row, 11).Value
+                     minRow = Row
+                End If
+            End If
+            ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        Next Row ''row iterator end
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        ' Update the Percentage high increase values
+    ' Update the Percentage high increase values
+    wkSheet.Cells(resultRow, 17).Value = max
+    wkSheet.Cells(resultRow, 16).Value = wkSheet.Cells(maxRow, 9).Value
+    wkSheet.Cells(resultRow, 15).Value = "Greatest % Increase"
 
-        wkSheet.Cells(pctgOffset, 17).Value = max
-        wkSheet.Cells(pctgOffset, 16).Value = wkSheet.Cells(maxRow, 9).Value
-        wkSheet.Cells(pctgOffset, 15).Value = "Greatest % Increase"
+    ' Update the Percentage high decrease values
+    wkSheet.Cells(resultRow + 1, 17).Value = min
+    wkSheet.Cells(resultRow + 1, 16).Value = wkSheet.Cells(minRow, 9).Value
+    wkSheet.Cells(resultRow + 1, 15).Value = "Greatest % Decrease"
 
-        ' Update the Percentage high decrease values
-        wkSheet.Cells(pctgOffset + 1, 17).Value = min
-        wkSheet.Cells(pctgOffset + 1, 16).Value = wkSheet.Cells(minRow, 9).Value
-        wkSheet.Cells(pctgOffset + 1, 15).Value = "Greatest % Decrease"
+    ' Update the Percentage high greatest Volume
+    wkSheet.Cells(resultRow + 2, 17).Value = maxVol
+    wkSheet.Cells(resultRow + 2, 16).Value = wkSheet.Cells(maxVolrow, 9).Value
+    wkSheet.Cells(resultRow + 2, 15).Value = "Greatest % Volume"
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        ' Update the Percentage high greatest Volume
-        wkSheet.Cells(pctgOffset + 2, 17).Value = maxVol
-        wkSheet.Cells(pctgOffset + 2, 16).Value = wkSheet.Cells(maxVolrow, 9).Value
-        wkSheet.Cells(pctgOffset + 2, 15).Value = "Greatest % Volume"
-        
-     Next wkSheet
-   
+
+    Next wkSheet  ''Sheet iterator end
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    timeSpentInMins = Format((Timer - startTime) / 86400, "hh:mm:ss")
+    MsgBox "Update Completed in hh::mm::ss  " & timeSpentInMins, vbInformation
 End Sub
-
-
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ```
 
