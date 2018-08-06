@@ -1,8 +1,11 @@
-## Solution
-> **NOTE:** All the common libraries needed for this project would be maintained here in [py_lib](https://github.com/vittalsiddaiah/UTDataAnalyticsAssignments/tree/master/Python/py_lib)
-### Challenge is yet to be posted...
-#### Code:
-```python
+import sys
+import re
+import os
+
+sys.path.insert(1, r'../../py_lib/')
+from py_lib.timer import timer
+from py_lib.us_state_abbrev import us_state_abbrev
+from py_lib.csv_parser import csv_parser
 
 ########################################################################################################################
 def PyBoss(employeeDataFile, modEmployeeDataFile):
@@ -29,30 +32,14 @@ def PyBoss(employeeDataFile, modEmployeeDataFile):
         fd_results.write(newEmployeeCSV)
     print(newEmployeeCSV)
     print("Log path : ", os.path.abspath(modEmployeeDataFile) + "\n")
-########################################################################################################################    
-```
-#### Output:
-```
-Emp ID,First Name,Last Name,DOB,SSN,State
-232,John,Mathews,02/24/1991,***-**-9165,ND
-533,Nathan,Moore,11/19/1978,***-**-7469,ME
-256,Amanda,Douglas,01/08/1990,***-**-6961,ID
-189,Heather,Andrews,08/11/1976,***-**-1797,VT
-284,Daniel,Hernandez,07/22/1976,***-**-7473,CO
-:
-21,Michelle,Brewer,06/10/1988,***-**-6836,OK
-362,Hannah,Nolan,09/15/1978,***-**-1332,OK
-368,Erica,Johnson,05/27/1978,***-**-9413,LA
-323,Jeremy,Obrien,01/13/1982,***-**-7592,OR
-
-Log path :  data/dst/employee_data_modified.csv
-
-Processed In : [00:00:00:00.0117]  (dd:hh:mm:ss.ssss)
-
-```
-******
+########################################################################################################################
 
 
-#### Support or Contact
+def PyParagraph():
 
-For details please contact [email](mailto:vittal.siddaiah@gmail.com) 
+
+########################################################################################################################
+if __name__ == '__main__':
+    timing = timer('Processed In : ')
+    PyBoss("../../data/src/employee_data.csv", "../../data/dst/employee_data_modified.csv")
+    print(timing.delta_str())

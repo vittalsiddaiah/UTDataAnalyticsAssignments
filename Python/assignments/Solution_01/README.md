@@ -3,26 +3,26 @@
 ### PyBank
 #### Code:
 ```python
+########################################################################################################################
 def PyBank(input_file, output_file):
     budgetData = csv_parser(input_file, True)
-    budgetData.apply('Revenue', int)
+    budgetData.apply(int, column_name='Profit/Losses')
     report = []
     report.append(line())
     report.append("                      Financial Analysis                      ")
     report.append(line())
     report.append("      Total number of months : " + str(len(budgetData)))
-    report.append("                       Total : $(" + str(budgetData.sum('Revenue')) + ")")
-    diff = budgetData.diff(column_name='Revenue')
-    report.append("              Average Change : $(" + str(sum(diff[0:len(diff)])/len(diff)) + ")")
+    #report.append("                       Total : $(" + str(budgetData.sum('Profit/Losses')) + ")")
+    report.append("                       Total : " + to_usd(budgetData.sum('Profit/Losses')) )
 
-    [maxValue, maxOffset] = budgetData.max(column_name='Revenue')
-    [minValue, minOffset] = budgetData.min(column_name='Revenue')
+    [diff_list, min_diff, min_offset, max_diff, max_offset, diff_sum] = budgetData.diff(column_name='Profit/Losses')
+    report.append("              Average Change :" + to_usd(diff_sum/len(diff_list)))
     report.append("Greatest Increase in Profits : "
-                  + budgetData.cell(maxOffset, 'Date')
-                  + "  $(" + str(maxValue) + ")")
+                  + budgetData.cell(max_offset, 'Date')
+                  + "  " + to_usd(max_diff))
     report.append("Greatest Decrease in Profits : "
-                  + budgetData.cell(minOffset, 'Date')
-                  + "  $(" + str(minValue) + ")")
+                  + budgetData.cell(min_offset, 'Date')
+                  + "  " + to_usd(min_diff))
     report.append(line())
     finalReport = "\n".join(report) + "\n"
 
@@ -30,21 +30,23 @@ def PyBank(input_file, output_file):
         fd_results.write(finalReport)
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
-
+########################################################################################################################
 ```
 #### Output:
 ```
-	----------------------------------------------------------------------------------
-	                      Financial Analysis                      
-	----------------------------------------------------------------------------------
-	      Total number of months : 41
-	                       Total : $(18971412)
-	              Average Change : $(-6758.975)
-	Greatest Increase in Profits : Sep-15  $(1195111)
-	Greatest Decrease in Profits : Aug-14  $(-1172384)
-	----------------------------------------------------------------------------------
-	Log path :  RevenueResultFile.txt
-	==================================================================================
+    ----------------------------------------------------------------------------------
+                          Financial Analysis                      
+    ----------------------------------------------------------------------------------
+          Total number of months : 86
+                           Total : $38,382,578.00
+                  Average Change :(-$2,315.12)
+    Greatest Increase in Profits : Feb-12  $1,926,159.00
+    Greatest Decrease in Profits : Sep-13  (-$2,196,167.00)
+    ----------------------------------------------------------------------------------
+    Log path :  data/dst/RevenueResultFile.txt
+    ==================================================================================
+    Processed In : [00:00:00:00.0014]  (dd:hh:mm:ss.ssss)
+
 ```
 ******
 
@@ -52,6 +54,7 @@ def PyBank(input_file, output_file):
 
 #### Code:
 ```python
+########################################################################################################################
 def PyPoll(input_file, output_file):
     print("\n\nParsing Election Data...")
     electionData = csv_parser(input_file, True)
@@ -80,24 +83,26 @@ def PyPoll(input_file, output_file):
         fd_results.write(finalReport)
     print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
     return
+########################################################################################################################
 ```
 
 #### Output:
 ```
-	----------------------------------------------------------------------------------
-	                       Election Results                       
-	----------------------------------------------------------------------------------
-	Total Votes: 3521001
-	----------------------------------------------------------------------------------
-	      Khan,  63.00%,  2218231
-	    Correy,  20.00%,   704200
-	        Li,  14.00%,   492940
-	  O'Tooley,   3.00%,   105630
-	----------------------------------------------------------------------------------
-	Winner: Khan
-	----------------------------------------------------------------------------------
-	Log path :  ElectionResultFile.txt
-	==================================================================================
+    ----------------------------------------------------------------------------------
+                           Election Results                       
+    ----------------------------------------------------------------------------------
+    Total Votes: 3521001
+    ----------------------------------------------------------------------------------
+          Khan,  63.00%,  2218231
+        Correy,  20.00%,   704200
+            Li,  14.00%,   492940
+      O'Tooley,   3.00%,   105630
+    ----------------------------------------------------------------------------------
+    Winner: Khan
+    ----------------------------------------------------------------------------------
+    Log path :  data/dst/ElectionResultFile.txt
+    ==================================================================================
+    Processed In : [00:00:00:15.8322]  (dd:hh:mm:ss.ssss)
 ```
 
 #### Support or Contact
