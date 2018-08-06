@@ -1,9 +1,9 @@
 ----------------------------------------------------------------------------------
                       Financial Analysis                      
 ----------------------------------------------------------------------------------
-      Total number of months : 41
-                       Total : $(18971412)
-              Average Change : $(-6758.975)
-Greatest Increase in Profits : Sep-15  $(1195111)
-Greatest Decrease in Profits : Aug-14  $(-1172384)
+      Total number of months : 86
+                       Total : $38,382,578.00
+              Average Change :(-$2,315.12)
+Greatest Increase in Profits : Feb-12  $1,926,159.00
+Greatest Decrease in Profits : Sep-13  (-$2,196,167.00)
 ----------------------------------------------------------------------------------

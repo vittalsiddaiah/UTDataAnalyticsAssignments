@@ -1,5 +1,12 @@
+# Copyright (c) 2018, Vittal Siddaiah
+# All rights reserved.
+
+__author__ = "Vittal Siddaiah"
+__author_email__ = "vittal.siddaiah@gmail.com"
+
 import math
 import re
+
 
 class csv_parser:
     """
@@ -46,6 +53,7 @@ class csv_parser:
 
     def __repr__(self):
         return "csv_parser()"
+
 
 
     def __str__(self):
@@ -151,14 +159,33 @@ class csv_parser:
         return [min, min_offset]
 
     #####################################################################
-    def diff(self, column_name='', column_offset=math.nan):
+    def diff(self, column_name='', column_offset=math.nan, is_sum_abs=False):
         if math.isnan(column_offset): column_offset = self.__get_col_offset__(column_name)
         diff_array = []
+        min = 0
+        max = 0
+        min_offset = 0
+        max_offset = 0
+        sum = 0
         for counter in range(len(self.__data__)):
             if counter == 0: continue
-            diff_array.append(self.__data__[counter][column_offset] - self.__data__[counter-1][column_offset])
+            delta = self.__data__[counter][column_offset] - self.__data__[counter - 1][column_offset]
+            if counter == 1:
+                min = delta
+                max = delta
+            diff_array.append(delta)
+            if delta < min:
+                min = delta
+                min_offset = counter
+            if delta > max:
+                max = delta
+                max_offset = counter
             counter += 1
-        return diff_array
+            if is_sum_abs:
+                sum += abs(delta)
+            else:
+                sum += delta
+        return [diff_array, min, min_offset, max, max_offset, sum]
 
     #####################################################################
     def row(self, row_id):
@@ -170,11 +197,10 @@ class csv_parser:
         return self.__data__[row_id][column_offset]
 
     #####################################################################
-    def apply(self, column_name, function):
-        offset = self.__get_col_offset__(column_name)
+    def apply(self, function, column_name='', column_offset=math.nan):
+        if (math.isnan(column_offset)): column_offset = self.__get_col_offset__(column_name)
         for data in self.__data__:
-            data[offset] = function(data[offset])
+            data[column_offset] = function(data[column_offset])
         return
 
     #####################################################################
-
