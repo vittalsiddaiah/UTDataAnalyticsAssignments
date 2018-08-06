@@ -8,9 +8,9 @@ def PyBank(input_file, output_file):
     budgetData = csv_parser(input_file, True)
     budgetData.apply(int, column_name='Profit/Losses')
     report = []
-    report.append(line())
+    report.append(h_line())
     report.append("                      Financial Analysis                      ")
-    report.append(line())
+    report.append(h_line())
     report.append("      Total number of months : " + str(len(budgetData)))
     #report.append("                       Total : $(" + str(budgetData.sum('Profit/Losses')) + ")")
     report.append("                       Total : " + to_usd(budgetData.sum('Profit/Losses')) )
@@ -23,12 +23,14 @@ def PyBank(input_file, output_file):
     report.append("Greatest Decrease in Profits : "
                   + budgetData.cell(min_offset, 'Date')
                   + "  " + to_usd(min_diff))
-    report.append(line())
+    report.append(h_line())
     finalReport = "\n".join(report) + "\n"
 
     with open(output_file, 'w') as fd_results:
         fd_results.write(finalReport)
-    print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
+
+    print("\n" + finalReport + "Input File  : " + os.path.abspath(input_file))
+    print("Output File : " + os.path.abspath(output_file) + "\n" + h_line(2))
     return
 ########################################################################################################################
 ```
@@ -43,10 +45,10 @@ def PyBank(input_file, output_file):
     Greatest Increase in Profits : Feb-12  $1,926,159.00
     Greatest Decrease in Profits : Sep-13  (-$2,196,167.00)
     ----------------------------------------------------------------------------------
-    Log path :  data/dst/RevenueResultFile.txt
+    Input File  : ../data/src/budget_data.csv
+    Output File : ../data/dst/RevenueResultFile.txt
     ==================================================================================
-    Processed In : [00:00:00:00.0014]  (dd:hh:mm:ss.ssss)
-
+    Processed In : [00:00:00:00.0011]  (dd:hh:mm:ss.ssss)
 ```
 ******
 
@@ -64,24 +66,25 @@ def PyPoll(input_file, output_file):
     resultArray.insert_pctg('TotalCount')
 
     report = []
-    report.append(line())
+    report.append(h_line())
     report.append("                       Election Results                       ")
-    report.append(line())
+    report.append(h_line())
     report.append("Total Votes: %d" % len(electionData))
-    report.append(line())
+    report.append(h_line())
     for offset in range(len(resultArray)):
         report.append("%10s, %6.2f%%, %8d" % (resultArray.cell(offset, column_offset=0),
                                               resultArray.cell(offset, column_offset=2) * 100.0,
                                               resultArray.cell(offset, column_offset=1)))
 
-    report.append(line())
+    report.append(h_line())
     report.append("Winner: " + resultArray.cell(resultArray.max('TotalCount')[1], column_offset=0))
-    report.append(line())
+    report.append(h_line())
     finalReport = "\n".join(report) + "\n"
 
     with open(output_file, 'w') as fd_results:
         fd_results.write(finalReport)
-    print(finalReport + "Log path : ", os.path.abspath(output_file) + "\n" + line(2))
+    print("\n" + finalReport + "Input File  : " + os.path.abspath(input_file))
+    print("Output File : " + os.path.abspath(output_file) + "\n" + h_line(2))
     return
 ########################################################################################################################
 ```
@@ -100,9 +103,10 @@ def PyPoll(input_file, output_file):
     ----------------------------------------------------------------------------------
     Winner: Khan
     ----------------------------------------------------------------------------------
-    Log path :  data/dst/ElectionResultFile.txt
+    Input File  : ../data/src/election_data.csv
+    Output File : ../data/dst/ElectionResultFile.txt
     ==================================================================================
-    Processed In : [00:00:00:15.8322]  (dd:hh:mm:ss.ssss)
+    Processed In : [00:00:00:15.7028]  (dd:hh:mm:ss.ssss)
 ```
 
 #### Support or Contact
