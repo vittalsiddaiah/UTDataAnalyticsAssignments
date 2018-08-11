@@ -8,7 +8,7 @@ import math
 class timer:
     """
     This function is set to get the timing, timer your modules ...
-    Time is the fundamental unit and it gives legitimacy to our perceptual existence  -Vittal.
+    Time is the fundamental unit, and it gives legitimacy to our perceptual existence...  -Vittal.
     """
 
     __begin_time__ = 0
